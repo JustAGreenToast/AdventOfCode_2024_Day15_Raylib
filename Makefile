@@ -29,7 +29,7 @@ raylib:
 
 clean:
 	$(RAYLIB_MAKE) clean
-	$(RM) $(OBJ)
+	$(RM) obj/
 
 fclean: clean
 	$(RM) $(NAME)
