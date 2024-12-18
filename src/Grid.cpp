@@ -1,11 +1,25 @@
 #include "Grid.hpp"
 
+Grid::Grid()
+{
+    _width = 0;
+    _height = 0;
+    _player = Vec2Int(0, 0);
+}
+
 Grid::Grid(std::string path, bool isPart2)
 {
     parse_grid(path, isPart2);
     _playerDir = 2;
     _animTimer = 0;
     _animFrame = 0;
+}
+
+Grid::Grid(const Grid &other) { other.copy_data(*this); }
+Grid &Grid::operator=(const Grid &other)
+{ 
+    other.copy_data(*this);
+    return *this;
 }
 
 Grid::~Grid() { }
@@ -189,7 +203,7 @@ void Grid::debug_print()
 }
 */
 
-Vec2Int Grid::get_dir_vector(int dirIndex)
+Vec2Int Grid::get_dir_vector(int dirIndex) const
 {
     switch (dirIndex)
     {
@@ -304,8 +318,23 @@ void Grid::move_box_tile(Vec2Int pos, Vec2Int dir)
     _grid[pos.get_y()][pos.get_x()] = Tiles::None;
 }
 
-unsigned int Grid::get_width() { return _width; }
-unsigned int Grid::get_height() { return _height; }
+void Grid::copy_data(Grid &other) const
+{
+    other._grid = _grid;
+    other._wallGuide = _wallGuide;
+    other._width = _width;
+    other._height = _height;
+    other._player = _player;
+    other._playerDir = _playerDir;
+    other._animTimer = _animTimer;
+    other._animFrame = _animFrame;
+    other._wallAtlas = _wallAtlas;
+    other._boxAtlas = _boxAtlas;
+    other._playerAtlas = _playerAtlas;
+}
+
+unsigned int Grid::get_width() const { return _width; }
+unsigned int Grid::get_height() const { return _height; }
 
 void Grid::load_textures()
 {

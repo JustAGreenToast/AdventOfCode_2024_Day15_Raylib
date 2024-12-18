@@ -31,7 +31,7 @@ class Grid
         void generate_wall_guides();
         // void debug_print();
 
-        Vec2Int get_dir_vector(int dirIndex);
+        Vec2Int get_dir_vector(int dirIndex) const;
         void move_player();
         bool is_valid_move(Vec2Int newPos, Vec2Int dir);
 
@@ -46,12 +46,17 @@ class Grid
         void draw_tile(unsigned int x, unsigned int y, Tiles tile);
         void draw_wall(unsigned int x, unsigned int y);
         void draw_player();
+
+        void copy_data(Grid &other) const;
     public:
+        Grid();
         Grid(std::string path, bool isPart2);
+        Grid(const Grid &other);
+        Grid &operator=(const Grid &other);
         ~Grid();
 
-        unsigned int get_width();
-        unsigned int get_height();
+        unsigned int get_width() const;
+        unsigned int get_height() const;
 
         void load_textures();
         void unload_textures();

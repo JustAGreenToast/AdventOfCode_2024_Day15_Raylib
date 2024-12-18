@@ -35,7 +35,13 @@ int main(int argn, char **args)
         std::cerr << "Usage: ./AoC_2024_Day15 <input_file>" << std::endl << "For Part 2 modifier, add '-p2' flag." << std::endl;
         return 1;
     }
-    Grid grid(path, isPart2);
+    Grid grid;
+    try { grid = Grid(path, isPart2); }
+    catch (std::exception &e)
+    {
+        std::cerr << "Could not generate map :(" << std::endl << "Reason: " << e.what() << std::endl;
+        return 1;
+    }
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
     uint width = grid.get_width() * 16;
     uint height = grid.get_height() * 16;
